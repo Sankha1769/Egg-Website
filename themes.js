@@ -31,7 +31,10 @@
     { id: 'midnight-lime',      name: 'Midnight & Lime',      mode: 'dark',  colors: ['#030407', '#1558C9', '#D4FF24'], bg: '#030407', text: '#F2F4FA', accent: '#D4FF24', surface: '#0A1230' },
     { id: 'fiery-sunshine',     name: 'Fiery & Sunshine',     mode: 'light', colors: ['#F04400', '#FFD91A'],            bg: '#FFD91A', text: '#2A1000', accent: '#F04400' },
     { id: 'mint-red',           name: 'Mint & Vivid Red',     mode: 'light', colors: ['#39F0AE', '#000000', '#FF0000'], bg: '#39F0AE', text: '#000000', accent: '#FF0000' },
-    { id: 'moss-neon',          name: 'Moss & Neon Emerald',  mode: 'dark',  colors: ['#000000', '#6D8F63', '#39FF88'], bg: '#000000', text: '#E7F1E4', accent: '#39FF88', surface: '#141A12', highlight: '#6D8F63' }
+    { id: 'moss-neon',          name: 'Moss & Neon Emerald',  mode: 'dark',  colors: ['#000000', '#6D8F63', '#39FF88'], bg: '#000000', text: '#E7F1E4', accent: '#39FF88', surface: '#141A12', highlight: '#6D8F63' },
+    { id: 'graphite-sunshine',  name: 'Graphite & Sunshine',  mode: 'dark',  colors: ['#1C1D20', '#F2F4F1', '#FFC928'], bg: '#1C1D20', text: '#F2F4F1', accent: '#FFC928' },
+    { id: 'powder-peach',       name: 'Powder & Peach',       mode: 'light', colors: ['#8DB9F0', '#E9E8F8', '#F5B69E'], bg: '#E9E8F8', text: '#1B2748', accent: '#F5B69E', surface: '#CFDCF5', link: '#8DB9F0', highlight: '#8DB9F0' },
+    { id: 'teal-lime',          name: 'Teal & Neon Lime',     mode: 'dark',  colors: ['#0B3048', '#F2F0E9', '#B9F12F'], bg: '#0B3048', text: '#F2F0E9', accent: '#B9F12F' }
   ];
 
   /* ---------- colour helpers ---------- */

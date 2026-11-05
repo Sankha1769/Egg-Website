@@ -22,7 +22,7 @@ def shot(page,name,**kw):
 fails=[]
 # Requirement tags: (substring of check name, requirement IDs). See docs/SRS.md section 6.
 REQ=[('no console/page errors','NFR-CODE-01'),('no external requests','NFR-PRV-01'),('first visit default','FR-THM-02'),('no duplicate ids','NFR-A11Y-04'),
-('exposes 15 themes','FR-THM-01'),('15 options with names','FR-THM-01'),('each option shows its palette swatches','FR-THM-01'),('current theme indicated','FR-THM-06'),
+('exposes 18 themes','FR-THM-01'),('18 options with names','FR-THM-01'),('each option shows its palette swatches','FR-THM-01'),('current theme indicated','FR-THM-06'),
 ('desktop panel inside viewport','FR-THM-06'),('selecting each theme','FR-THM-03'),('Escape closes','FR-THM-06'),('keyboard opens panel','FR-THM-06'),('arrow key changes','FR-THM-06'),
 ('focus stays trapped','FR-THM-06'),('click outside closes','FR-THM-06'),('persists after reload','FR-THM-04'),('persists across in-page','FR-THM-04'),('404 page: theme persisted','FR-THM-04,FR-404-01'),
 ('choice made on 404','FR-THM-04'),('storage blocked','FR-THM-05'),('invalid stored value','FR-THM-05'),('rendered text contrast','NFR-A11Y-01,FR-THM-08'),('focus ring','NFR-A11Y-01,FR-THM-08'),
@@ -43,8 +43,8 @@ def chk(n,c,x=''):
     print(('PASS ' if c else 'FAIL ')+('['+','.join(ids)+'] ' if ids else '')+n+(' '+str(x) if (x!='' and not c) else ''))
     RESULTS.append({'name':n,'req':ids,'pass':bool(c)})
     if not c: fails.append(n)
-IDS=['aubergine-marigold','creative-pop','emerald-vermilion','cobalt-red','earth-amber','ink-teal','royal-blue','porcelain-lemon','forest-crimson','pink-lemon','orchid-orange','midnight-lime','fiery-sunshine','mint-red','moss-neon']
-NAMES=['Aubergine & Marigold','Creative Pop','Emerald & Vermilion','Cobalt & Red','Earth & Amber','Ink & Teal','Royal Blue','Porcelain & Lemon','Forest & Crimson','Pink & Lemon','Orchid & Orange','Midnight & Lime','Fiery & Sunshine','Mint & Vivid Red','Moss & Neon Emerald']
+IDS=['aubergine-marigold','creative-pop','emerald-vermilion','cobalt-red','earth-amber','ink-teal','royal-blue','porcelain-lemon','forest-crimson','pink-lemon','orchid-orange','midnight-lime','fiery-sunshine','mint-red','moss-neon','graphite-sunshine','powder-peach','teal-lime']
+NAMES=['Aubergine & Marigold','Creative Pop','Emerald & Vermilion','Cobalt & Red','Earth & Amber','Ink & Teal','Royal Blue','Porcelain & Lemon','Forest & Crimson','Pink & Lemon','Orchid & Orange','Midnight & Lime','Fiery & Sunshine','Mint & Vivid Red','Moss & Neon Emerald','Graphite & Sunshine','Powder & Peach','Teal & Neon Lime']
 widths=[320,360,375,390,414,430,768,1024,1280,1366,1440,1920]
 CONTRAST_JS="""()=>{
  const parse=c=>{const m=c.match(/rgba?\\(([^)]+)\\)/);if(!m)return null;const p=m[1].split(/[ ,\\/]+/).map(Number);return {r:p[0],g:p[1],b:p[2],a:p.length>3?p[3]:1}};
@@ -72,11 +72,11 @@ with sync_playwright() as p:
     chk('no console/page errors',errs==[],errs); chk('no external requests',reqs==[],reqs)
     chk('first visit default theme is Ink & Teal',pg.evaluate("document.documentElement.dataset.theme")=='ink-teal' and pg.evaluate("window.__dcl")==['ink-teal','#031211'],pg.evaluate("window.__dcl"))
     dup=pg.evaluate("(()=>{const m={};document.querySelectorAll('[id]').forEach(e=>m[e.id]=(m[e.id]||0)+1);return Object.keys(m).filter(k=>m[k]>1)})()"); chk('no duplicate ids',dup==[],dup)
-    chk('PortfolioTheme exposes 15 themes in required order',pg.evaluate("PortfolioTheme.themes.map(t=>t.name)")==NAMES)
+    chk('PortfolioTheme exposes 18 themes in required order',pg.evaluate("PortfolioTheme.themes.map(t=>t.name)")==NAMES)
     # ---------- switcher UI ----------
     pg.click('#theme-btn'); pg.wait_for_timeout(150)
     chk('theme panel opens, aria-expanded true',pg.get_attribute('#theme-btn','aria-expanded')=='true' and pg.is_visible('#theme-panel'))
-    chk('15 options with names',pg.eval_on_selector_all('.theme-name','e=>e.map(x=>x.textContent)')==NAMES)
+    chk('18 options with names',pg.eval_on_selector_all('.theme-name','e=>e.map(x=>x.textContent)')==NAMES)
     chk('each option shows its palette swatches (3, or 2 for the two-colour Fiery & Sunshine palette)',pg.evaluate("PortfolioTheme.themes.every((t,i)=>document.querySelectorAll('.theme-opt')[i].querySelectorAll('.swatches i').length===t.colors.length&&t.colors.length>=2)"))
     chk('current theme indicated (checked radio)',pg.evaluate("document.querySelector('#theme-panel input:checked').value")=='ink-teal' and pg.evaluate("getComputedStyle(document.querySelector('.theme-opt:has(input:checked) .theme-check')).visibility")=='visible')
     panel_in=pg.evaluate("(()=>{const r=document.getElementById('theme-panel').getBoundingClientRect();return r.left>=0&&r.right<=innerWidth&&r.top>=0&&r.bottom<=innerHeight})()"); chk('desktop panel inside viewport',panel_in)
@@ -88,7 +88,7 @@ with sync_playwright() as p:
         sig=(r['body'],r['txt'],r['btn']); detail.append((tid,r['body'],r['btn']))
         if r['t']!=tid or r['ls']!=tid or sig in seen: ok=False
         seen.add(sig)
-    chk('selecting each theme updates page, stored value and meta theme-color instantly (15 distinct looks)',ok,detail)
+    chk('selecting each theme updates page, stored value and meta theme-color instantly (18 distinct looks)',ok,detail)
     pg.check('#theme-panel input[value="orchid-orange"]',force=True)
     pg.keyboard.press('Escape'); pg.wait_for_timeout(100); chk('Escape closes, focus returns to button',not pg.is_visible('#theme-panel') and pg.evaluate("document.activeElement.id")=='theme-btn')
     # keyboard-only operation
@@ -121,7 +121,7 @@ with sync_playwright() as p:
         # unique
         u={(x['t'],x['el']):x for x in bad}; 
         if u: allbad[tid]=list(u.values())[:6]
-    chk('rendered text contrast (4.5:1, 3:1 large) in all 15 themes incl. open picker',allbad=={},json.dumps(allbad)[:1500])
+    chk('rendered text contrast (4.5:1, 3:1 large) in all 18 themes incl. open picker',allbad=={},json.dumps(allbad)[:1500])
     # focus indicator + interactive states per theme
     fb=[]
     for tid in IDS:
@@ -171,9 +171,9 @@ with sync_playwright() as p:
         chk(f'mobile {w}x{h}: bottom sheet fits viewport, scrolls internally, no horizontal overflow',r['inside'] and r['scroll'] and r['sw'],r)
         pg.evaluate("document.querySelector('.theme-list').scrollTop=9999"); pg.wait_for_timeout(100)
         last=pg.evaluate("(()=>{const o=[...document.querySelectorAll('.theme-opt')].pop().getBoundingClientRect(),l=document.querySelector('.theme-list').getBoundingClientRect();return o.bottom<=l.bottom+1&&o.top>=l.top-1})()")
-        chk(f'mobile {w}: last option (Moss & Neon Emerald) reachable by scrolling',last)
+        chk(f'mobile {w}: last option (Teal & Neon Lime) reachable by scrolling',last)
         pg.tap('#theme-panel input[value="midnight-lime"]') if False else pg.tap('.theme-opt:last-child'); pg.wait_for_timeout(100)
-        chk(f'mobile {w}: tapping an option applies theme',pg.evaluate("document.documentElement.dataset.theme")=='moss-neon')
+        chk(f'mobile {w}: tapping an option applies theme',pg.evaluate("document.documentElement.dataset.theme")=='teal-lime')
         if (w,h)==(390,844): shot(pg,'sheet_390.png')
         pg.tap('#theme-close'); pg.wait_for_timeout(100); chk(f'mobile {w}: close button works',not pg.is_visible('#theme-panel'))
         pg.tap('#theme-btn'); pg.wait_for_timeout(100); pg.tap('.theme-backdrop',position={'x':20,'y':20}); pg.wait_for_timeout(100); chk(f'mobile {w}: tapping backdrop closes',not pg.is_visible('#theme-panel'))

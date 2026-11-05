@@ -1,13 +1,13 @@
 # Product Requirements Document (PRD)
 
 **Product:** Egg Guide — an informational website about eggs
-**Version:** 1.1  |  **Date:** October 2026  |  **Status:** Draft for owner review
+**Version:** 1.2  |  **Date:** November 2026  |  **Status:** Draft for owner review
 **Companion document:** [SRS.md](SRS.md)
 
 ---
 
 ## 1. Summary
-Egg Guide is a polished, easy-to-read website that helps people learn about eggs: what they are, the main types, what is in them, how they fit into a balanced diet, how to choose and store them safely, and simple ways to cook them. It was converted from a developer portfolio. The existing design, layout, theme switcher and responsive behaviour were deliberately preserved; only the subject, content and imagery changed. Version 1.1 adds three more colour themes (15 in total).
+Egg Guide is a polished, easy-to-read website that helps people learn about eggs: what they are, the main types, what is in them, how they fit into a balanced diet, how to choose and store them safely, and simple ways to cook them. It was converted from a developer portfolio. The existing design, layout, theme switcher and responsive behaviour were deliberately preserved; only the subject, content and imagery changed. Versions 1.1 and 1.2 add six more colour themes (18 in total).
 
 ## 2. Background and problem
 Eggs are an everyday food, yet people are often unsure how to store them, how to read cartons, how the types differ, or what the nutrition information actually says, and the web is full of exaggerated health claims. Visitors need clear, careful, sourced information in an attractive, accessible format.
@@ -23,7 +23,7 @@ Eggs are an everyday food, yet people are often unsure how to store them, how to
 | G3 | Visitors can learn the differences between egg types without being told one is "better" | Types section; labels explained as farming descriptions |
 | G4 | Visitors can store and handle eggs safely | Storage section aligned with USDA FSIS guidance |
 | G5 | Visitors can cook something straight away | Five recipe cards with expandable ingredients and method |
-| G6 | The preserved design system keeps working and can grow | 15 themes, shared switcher, persistence, responsive layout, accessible controls |
+| G6 | The preserved design system keeps working and can grow | 18 themes, shared switcher, persistence, responsive layout, accessible controls |
 | G7 | The site is easy for the owner to maintain | Static HTML; no build step |
 
 ### 3.2 Non-goals
@@ -43,7 +43,7 @@ Eggs are an everyday food, yet people are often unsure how to store them, how to
 
 ## 5. Scope
 ### 5.1 In scope (version 1.0)
-Hero; About eggs; Types; Nutrition; Benefits; Storage; Recipes; FAQ; Sources; footer; 404 page; 15-theme system; responsive layout from 320 px up; original illustrations; README, PRD, SRS and optional tests.
+Hero; About eggs; Types; Nutrition; Benefits; Storage; Recipes; FAQ; Sources; footer; 404 page; 18-theme system; responsive layout from 320 px up; original illustrations; README, PRD, SRS and optional tests.
 
 ### 5.2 Out of scope
 Photography, more recipes, search, multilingual content, regional editions, newsletter, comments, contact form (see roadmap).
@@ -57,7 +57,7 @@ Photography, more recipes, search, multilingual content, regional editions, news
 | US-04 | cook | open a recipe and see ingredients and method | I can cook it | Five recipe cards with expandable details | FR-CON-04 |
 | US-05 | visitor | find quick answers | I don't have to read everything | FAQ with 8+ questions, keyboard operable | FR-CON-05 |
 | US-06 | household | store and handle eggs safely | we avoid foodborne illness | Storage guidance matching USDA FSIS | FR-CON-06 |
-| US-07 | visitor | choose a colour theme from any page | the site suits my preference | 15 named themes; instant; persistent | FR-THM-01–05 |
+| US-07 | visitor | choose a colour theme from any page | the site suits my preference | 18 named themes; instant; persistent | FR-THM-01–05 |
 | US-08 | phone user | use the theme picker comfortably | I can change themes easily | Bottom sheet fits and scrolls | FR-THM-07 |
 | US-09 | keyboard user | use menu, picker, recipes and FAQ without a mouse | I can use the site | All operable by keyboard | FR-NAV-02, FR-THM-06, FR-CON-05 |
 | US-10 | low-vision visitor | read every theme | no theme is unusable | Contrast thresholds met | NFR-A11Y-01 |
@@ -93,7 +93,7 @@ Rules: no invented statistics; no cure or guarantee claims; no comparison of nut
 
 ## 9. Design requirements
 - **Preserved:** page layout, component structure, typography, spacing, navigation, responsive behaviour, the original 12 themes, Ink & Teal default.
-- **Added in 1.1:** Fiery & Sunshine, Mint & Vivid Red and Moss & Neon Emerald, from a second set of palette screenshots. The theme engine derives all tokens, so no picker or stylesheet logic changed beyond aligning option labels.
+- **Added in 1.1 and 1.2:** Fiery & Sunshine, Mint & Vivid Red and Moss & Neon Emerald (second set of palette screenshots); Graphite & Sunshine, Powder & Peach and Teal & Neon Lime (third set). The theme engine derives all tokens, so no picker or stylesheet logic changed beyond aligning option labels.
 - **Adapted:** the portfolio's project lead-and-pair layout now presents egg types and recipes; the skills ledger presents nutrients and storage steps; the practice rows present benefits and labels; the contact band presents sources.
 - **Imagery:** original flat illustrations. Outlines, plates and panels follow the theme tokens, while food keeps natural colours so eggs always look like eggs.
 - **Motion:** unchanged and minimal; reduced-motion respected.
@@ -106,8 +106,8 @@ Acceptance-based, not traffic-based (no analytics exist and none are claimed).
 | Hero text and both buttons exactly as specified | Verified (automated) |
 | All required sections present with required content | Verified (automated structure and keyword checks) plus manual accuracy review |
 | Nutrition numbers state serving size and source | Verified (automated presence); factual accuracy reviewed manually, with limits (SRS section 8) |
-| 15 themes work, default Ink & Teal, persistence | Verified (automated); `switcher.js` unchanged; `themes.js` changed only by three added entries |
-| Contrast met in every theme (all 15) | Verified (rendered-style audit) |
+| 18 themes work, default Ink & Teal, persistence | Verified (automated); `switcher.js` unchanged; `themes.js` changed only by added theme entries |
+| Contrast met in every theme (all 18) | Verified (rendered-style audit) |
 | No horizontal overflow at the listed widths | Verified (automated, two themes) |
 | Works without JavaScript | Verified (automated) |
 | No portfolio content remains | Verified (automated keyword check) |
@@ -139,11 +139,14 @@ Automated run: **95 of 95 checks passed** (headless Chromium, October 2026). Unt
 | --- | --- | --- |
 | **1.0** | Egg content on the preserved design; 12 themes; documentation; tests | **Built** |
 | **1.1** | Three added themes (Fiery & Sunshine, Mint & Vivid Red, Moss & Neon Emerald); tests and documents updated | **Built** |
-| 1.2 | Resolve Q1–Q6; add real photos if available; deploy and set `og:image` URL | **Planned** |
-| 1.3 | More recipes; regional guidance | **Planned** |
+| **1.2** | Three further themes (Graphite & Sunshine, Powder & Peach, Teal & Neon Lime); tests and documents updated | **Built** |
+| 1.3 | Resolve Q1–Q6; add real photos if available; deploy and set `og:image` URL | **Planned** |
+| 1.4 | More recipes; regional guidance | **Planned** |
 | Later | Test on Firefox, Safari and real devices; accessibility and performance audits | **Planned** |
 
 ## 14. Change from the previous version
 Replaced: developer introduction, project showcase, skills, practice, journey, contact form and GitHub/résumé references. Added: egg content, original illustrations, a data table, native accordions. **Unchanged:** `switcher.js`, the token and layout system, navigation behaviour, responsive rules, 404 page structure, test approach. `themes.js` keeps all 12 original themes and the token logic. The `portfolio-theme` storage key was kept so returning visitors keep their theme.
 
 **Version 1.1:** added three themes (Fiery & Sunshine, Mint & Vivid Red, Moss & Neon Emerald) from a second set of palette screenshots. The Fiery & Sunshine palette has only two printed colours, so it uses yellow as the page background and orange as the accent for readable contrast. This is a design decision the owner may want to change.
+
+**Version 1.2:** added three further themes (Graphite & Sunshine, Powder & Peach, Teal & Neon Lime) from a third set of palette screenshots. Powder & Peach derives its panel tint and dark text from the palette hues; all six added themes pass the same contrast audit as the original twelve.

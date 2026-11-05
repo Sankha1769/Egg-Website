@@ -1,7 +1,7 @@
 # Software Requirements Specification (SRS)
 
 **Product:** Egg Guide — an informational website about eggs
-**Version:** 1.1  |  **Date:** October 2026  |  **Status:** Draft for owner review
+**Version:** 1.2  |  **Date:** November 2026  |  **Status:** Draft for owner review
 **Companion document:** [PRD.md](PRD.md)
 
 ---
@@ -11,7 +11,7 @@
 This document specifies what the Egg Guide website shall do, the constraints it must meet, and how each requirement is verified.
 
 ### 1.2 Scope
-A static, single-page website (plus a 404 page) that teaches visitors about eggs: what they are, the main types, nutrition, balanced-diet context, choosing and storing eggs safely, simple recipes and common questions. It includes a site-wide colour-theme system with 15 presets. It has **no backend, database, accounts, analytics or contact form**. The site was converted from a developer portfolio; the layout, design system, theme system and responsive behaviour were preserved, and three further themes were added in version 1.1.
+A static, single-page website (plus a 404 page) that teaches visitors about eggs: what they are, the main types, nutrition, balanced-diet context, choosing and storing eggs safely, simple recipes and common questions. It includes a site-wide colour-theme system with 18 presets. It has **no backend, database, accounts, analytics or contact form**. The site was converted from a developer portfolio; the layout, design system, theme system and responsive behaviour were preserved, and six further themes were added in versions 1.1 and 1.2.
 
 ### 1.3 Definitions
 | Term | Meaning |
@@ -66,13 +66,13 @@ Statuses are computed from the recorded test run (section 6).
 | FR-CON-06 | Content shall not claim that eggs cure disease or guarantee health outcomes; it shall state that it is general information and not medical advice and point to doctors or dietitians for medical conditions or allergy; storage and safety guidance shall follow USDA FSIS (refrigerate at 4 °C / 40 °F or below). | Must | **Verified** | Automated: keyword checks for forbidden claim patterns, disclaimer text, USDA reference and the 4 °C (40 °F) figure. These are keyword checks; they cannot prove every sentence is accurate. (3 checks) |
 | FR-CON-07 | No developer-portfolio content (names, projects, skills, GitHub or résumé references) shall remain on the page. | Must | **Verified** | Automated: absence of nine portfolio-related words in the rendered text. (1 checks) |
 | FR-IMG-01 | Images shall be original SVG illustrations (no raster or external images). Each shall have `role="img"` and a descriptive `aria-label`, explicit width and height, and its artwork shall lie inside its frame. The hidden sprite shall be excluded from assistive technology. | Must | **Verified** | Automated: nine illustrations labelled and dimensioned; sprite `aria-hidden`; no `<img>` elements; pixel check that artwork is not cropped. (4 checks) |
-| FR-THM-01 | The site shall offer exactly 15 themes, in this order: Aubergine & Marigold, Creative Pop, Emerald & Vermilion, Cobalt & Red, Earth & Amber, Ink & Teal, Royal Blue, Porcelain & Lemon, Forest & Crimson, Pink & Lemon, Orchid & Orange, Midnight & Lime, Fiery & Sunshine, Mint & Vivid Red, Moss & Neon Emerald. Each shall show its name and its printed palette swatches (three, or two for the two-colour Fiery & Sunshine palette). | Must | **Verified** | Automated: names, order, and swatch count per option (matched to each palette). (3 checks) |
+| FR-THM-01 | The site shall offer exactly 18 themes, in this order: Aubergine & Marigold, Creative Pop, Emerald & Vermilion, Cobalt & Red, Earth & Amber, Ink & Teal, Royal Blue, Porcelain & Lemon, Forest & Crimson, Pink & Lemon, Orchid & Orange, Midnight & Lime, Fiery & Sunshine, Mint & Vivid Red, Moss & Neon Emerald, Graphite & Sunshine, Powder & Peach, Teal & Neon Lime. Each shall show its name and its printed palette swatches (three, or two for the two-colour Fiery & Sunshine palette). | Must | **Verified** | Automated: names, order, and swatch count per option (matched to each palette). (3 checks) |
 | FR-THM-02 | A first-time visitor shall see Ink & Teal. | Must | **Verified** | Automated: attribute and `--bg` at `DOMContentLoaded`. (1 checks) |
-| FR-THM-03 | Selecting a theme shall restyle the whole interface immediately without a reload and without colour transitions, and update the `theme-color` meta tag. | Must | **Verified** | Automated: all 15 themes produce distinct pages, stored values and meta colours. (1 checks) |
+| FR-THM-03 | Selecting a theme shall restyle the whole interface immediately without a reload and without colour transitions, and update the `theme-color` meta tag. | Must | **Verified** | Automated: all 18 themes produce distinct pages, stored values and meta colours. (1 checks) |
 | FR-THM-04 | The theme shall persist in `localStorage` across reloads, in-page navigation and `index.html` / `404.html`, and be applied by a synchronous `<head>` script before first paint. | Must | **Verified** | Automated: reload, navigation and 404 round trip. "Before first paint" shown via `DOMContentLoaded` state, not frame capture. (4 checks) |
 | FR-THM-05 | If storage is unavailable or holds an unknown value the site shall still work and fall back to Ink & Teal. | Must | **Verified** | Automated. (2 checks) |
 | FR-THM-06 | The picker shall open from the shared header, show the current theme, be fully keyboard operable (arrows change theme; Escape closes and returns focus; focus stays inside), and close on outside click. | Must | **Verified** | Automated. (8 checks) |
-| FR-THM-07 | Below 48em the picker shall be a bottom sheet that fits the viewport, scrolls to all 15 options, dims the page, closes via Close button or backdrop, and causes no horizontal overflow. The theme button shall stay visible in the header. | Must | **Verified** | Automated at 320x568, 375x667 and 390x844 with touch emulation. (18 checks) |
+| FR-THM-07 | Below 48em the picker shall be a bottom sheet that fits the viewport, scrolls to all 18 options, dims the page, closes via Close button or backdrop, and causes no horizontal overflow. The theme button shall stay visible in the header. | Must | **Verified** | Automated at 320x568, 375x667 and 390x844 with touch emulation. (18 checks) |
 | FR-THM-08 | All stylesheet colours shall use design tokens, and every theme shall define all tokens, derived so contrast thresholds in NFR-A11Y-01 are met. | Must | **Verified** | Automated: token contrast and rendered-text audit. Absence of hard-coded theme colours was inspected, not tested. (Illustration food colours are fixed by design.) (2 checks) |
 | FR-404-01 | `404.html` shall show a clear message, a link back, the shared header and the theme switcher. | Should | **Verified** | Automated: theme persists and switcher present. (1 checks) |
 
@@ -82,7 +82,7 @@ Statuses are computed from the recorded test run (section 6).
 
 | ID | Requirement | Priority | Status | Verification |
 | --- | --- | --- | --- | --- |
-| NFR-A11Y-01 | Text shall meet 4.5:1 (3:1 for large text) against its rendered background in every theme, including the open picker; focus indicators and control borders shall meet 3:1. | Must | **Verified** | Automated: computed-style audit of every text element in all 15 themes, plus token checks. (2 checks) |
+| NFR-A11Y-01 | Text shall meet 4.5:1 (3:1 for large text) against its rendered background in every theme, including the open picker; focus indicators and control borders shall meet 3:1. | Must | **Verified** | Automated: computed-style audit of every text element in all 18 themes, plus token checks. (2 checks) |
 | NFR-A11Y-02 | All interactive controls shall be operable by keyboard with a visible focus indicator. | Must | **Implemented** | Partly exercised (menu, picker, FAQ, recipe details, skip link). No full keyboard audit or screen-reader test. |
 | NFR-A11Y-03 | With `prefers-reduced-motion: reduce` animations and transitions shall be effectively disabled and all functions still work. | Must | **Verified** | Automated: theme switching under reduced motion. The CSS rule was inspected. (1 checks) |
 | NFR-A11Y-04 | The page shall use semantic landmarks, one `h1`, ordered headings, a captioned data table with scoped headers, labelled controls and unique IDs. | Must | **Verified** | Automated: duplicate-ID check only. Structure inspected, not audited with an external tool. (1 checks) |
@@ -93,7 +93,7 @@ Statuses are computed from the recorded test run (section 6).
 | NFR-ROB-01 | Without JavaScript the headline, navigation, default theme and all content (about, table, recipes, FAQ) shall remain available with no horizontal overflow. | Should | **Verified** | Automated with JavaScript disabled. (3 checks) |
 | NFR-CODE-01 | Loading and using the site shall produce no console or page errors. | Must | **Verified** | Automated. (1 checks) |
 | NFR-COMP-01 | The site shall run by opening `index.html` from disk with no build step. | Must | **Partially verified** | All tests load through `file://` in Chromium. Other browsers not tested. |
-| NFR-MNT-01 | Themes shall be defined in one file (`themes.js`); adding a theme shall require adding one object, with no change to the picker or stylesheet. | Should | **Implemented** | `switcher.js` is byte-identical to the previous version. `themes.js` differs only by three added theme entries and a comment line (verified by diff, a development check, not part of the shipped test suite). |
+| NFR-MNT-01 | Themes shall be defined in one file (`themes.js`); adding a theme shall require adding one object, with no change to the picker or stylesheet. | Should | **Implemented** | `switcher.js` is byte-identical to the previous version. `themes.js` differs only by six added theme entries and a comment line (verified by diff, a development check, not part of the shipped test suite). |
 | NFR-CNT-01 | Every specific number on the page shall have a stated source and serving size. Statements not covered by a cited source shall be general, widely known cooking facts and are listed in section 8. | Must | **Implemented** | Reviewed manually against sources found during development. No automated check can verify factual accuracy. |
 | NFR-PERF-01 | The site shall have no build step and no third-party assets. No numeric load-time target is set and none was measured. | Should | **Not measured** | File sizes in Appendix C. No Lighthouse or timing run. |
 
@@ -197,9 +197,9 @@ Cross-type nutrient comparisons were deliberately **not** published: USDA datase
 ---
 
 ## Appendix A. Theme definitions and measured contrast
-Themes 1–12 are from the first set of palette screenshots; themes 13–15 were added in version 1.1 from a second set. Required: text/background and link ≥ 4.5; secondary text ≥ 4.5.
+Themes 1–12 are from the first set of palette screenshots; themes 13–15 were added in version 1.1 from a second set, and themes 16–18 in version 1.2 from a third set. Required: text/background and link ≥ 4.5; secondary text ≥ 4.5.
 
-Notes on the added themes: *Fiery & Sunshine* has only two printed colours (`#F04400`, `#FFD91A`), so its picker option shows two swatches; it uses Sunshine Yellow as the page background with Fiery Orange as the accent, because yellow text on an orange page fails contrast. *Mint & Vivid Red* uses Mint Green as the background, black text and Vivid Red accents. *Moss & Neon Emerald* uses Jet Black as the background with Neon Emerald as the accent and Muted Moss Green for surfaces and labels. Text colours `#2A1000` and `#E7F1E4`, and the moss-tinted surface `#141A12`, are derived shades of the palette hues, not printed values. Printed hex values were cross-checked against sampled swatch pixels.
+Notes on the added themes: *Fiery & Sunshine* has only two printed colours (`#F04400`, `#FFD91A`), so its picker option shows two swatches; it uses Sunshine Yellow as the page background with Fiery Orange as the accent, because yellow text on an orange page fails contrast. *Mint & Vivid Red* uses Mint Green as the background, black text and Vivid Red accents. *Moss & Neon Emerald* uses Jet Black as the background with Neon Emerald as the accent and Muted Moss Green for surfaces and labels. Text colours `#2A1000` and `#E7F1E4`, and the moss-tinted surface `#141A12`, are derived shades of the palette hues, not printed values. *Graphite & Sunshine* uses Deep Graphite as the background with Soft Cloud White text and Sunshine Yellow accents. *Powder & Peach* uses Soft Lavender White as the page background, a derived light powder-blue tint (`#CFDCF5`) for panels, derived dark navy text (`#1B2748`) and Warm Sunset Peach as the action colour; its link colour is a darkened Powder Blue. *Teal & Neon Lime* uses Deep Midnight Teal as the background with Soft Pearl text and Vibrant Neon Lime accents. Printed hex values for all six added themes were cross-checked against sampled swatch pixels.
 
 | # | Theme | Mode | Background | Text | Accent | Text / bg | Secondary text / raised surface | Link / raised surface | Button text / accent |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -218,6 +218,9 @@ Notes on the added themes: *Fiery & Sunshine* has only two printed colours (`#F0
 | 13 | Fiery & Sunshine | light | `#FFD91A` | `#2A1000` | `#F04400` | 13.0 | 4.7 | 4.9 | 4.7 |
 | 14 | Mint & Vivid Red | light | `#39F0AE` | `#000000` | `#FF0000` | 14.2 | 5.6 | 4.7 | 5.3 |
 | 15 | Moss & Neon Emerald | dark | `#000000` | `#E7F1E4` | `#39FF88` | 18.1 | 6.2 | 11.2 | 15.8 |
+| 16 | Graphite & Sunshine | dark | `#1C1D20` | `#F2F4F1` | `#FFC928` | 15.2 | 5.6 | 7.6 | 10.9 |
+| 17 | Powder & Peach | light | `#E9E8F8` | `#1B2748` | `#F5B69E` | 12.1 | 5.0 | 4.9 | 8.4 |
+| 18 | Teal & Neon Lime | dark | `#0B3048` | `#F2F0E9` | `#B9F12F` | 12.0 | 4.6 | 7.1 | 10.2 |
 
 ## Appendix B. Design tokens
 `--bg`, `--surface`, `--surface-2`; `--text`, `--text-2`; `--line`, `--line-strong`; `--accent`, `--on-accent`, `--accent-edge`, `--accent-soft`; `--link`, `--focus`; `--highlight`; `--band`, `--on-band`, `--band-2`, `--band-line`, `--band-accent`; `--shadow`.
@@ -227,7 +230,7 @@ Notes on the added themes: *Fiery & Sunshine* has only two printed colours (`#F0
 | --- | --- | --- |
 | `index.html` | All content, navigation, SVG sprite | 39,822 |
 | `style.css` | Layout and components (tokens only; illustration food colours fixed) | 23,068 |
-| `themes.js` | Theme definitions, token derivation, persistence (15 themes) | 8,859 |
+| `themes.js` | Theme definitions, token derivation, persistence (18 themes) | 9,437 |
 | `switcher.js` | Theme picker UI (unchanged since 1.0) | 5,128 |
 | `script.js` | Mobile menu, current-section highlight, footer year | 2,671 |
 | `404.html` | Not-found page | 1,091 |
