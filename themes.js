@@ -34,7 +34,8 @@
     { id: 'moss-neon',          name: 'Moss & Neon Emerald',  mode: 'dark',  colors: ['#000000', '#6D8F63', '#39FF88'], bg: '#000000', text: '#E7F1E4', accent: '#39FF88', surface: '#141A12', highlight: '#6D8F63' },
     { id: 'graphite-sunshine',  name: 'Graphite & Sunshine',  mode: 'dark',  colors: ['#1C1D20', '#F2F4F1', '#FFC928'], bg: '#1C1D20', text: '#F2F4F1', accent: '#FFC928' },
     { id: 'powder-peach',       name: 'Powder & Peach',       mode: 'light', colors: ['#8DB9F0', '#E9E8F8', '#F5B69E'], bg: '#E9E8F8', text: '#1B2748', accent: '#F5B69E', surface: '#CFDCF5', link: '#8DB9F0', highlight: '#8DB9F0' },
-    { id: 'teal-lime',          name: 'Teal & Neon Lime',     mode: 'dark',  colors: ['#0B3048', '#F2F0E9', '#B9F12F'], bg: '#0B3048', text: '#F2F0E9', accent: '#B9F12F' }
+    { id: 'teal-lime',          name: 'Teal & Neon Lime',     mode: 'dark',  colors: ['#0B3048', '#F2F0E9', '#B9F12F'], bg: '#0B3048', text: '#F2F0E9', accent: '#B9F12F' },
+    { id: 'black-neon-lime',    name: 'Black & Neon Lime',    mode: 'dark',  colors: ['#050606', '#F5F3EF', '#C8FF00'], bg: '#050606', text: '#F5F3EF', accent: '#C8FF00' }
   ];
 
   /* ---------- colour helpers ---------- */
